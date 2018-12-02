@@ -1,12 +1,23 @@
 import React, { Component } from 'react';
 import classNames from 'classnames';
 import PropTypes from 'prop-types';
+
+import { connect } from "react-redux";
+import { setBuyPrice, setBudget, setQuantity, setMinProfit } from "../redux/actions";
+
 import { withStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 import InputAdornment from '@material-ui/core/InputAdornment';
 import TextField from '@material-ui/core/TextField';
+
+const inputTypeEnum = {
+  BUY_PRICE: 'buyPrice',
+  QUANTITY: 'quantity',
+  BUDGET: 'budget',
+  MIN_PROFIT: 'minProfit'
+}
 
 const styles = theme => ({
   root: {
@@ -25,15 +36,24 @@ const styles = theme => ({
 });
 
 class Input extends Component {
-  state = {
-    buyingPrice: '',
-    budget: '',
-    quantity: '',
-    minProfit: ''
-  };
+  handleChange = inputType => event => {
+    const inputValue = event.target.value;
+    switch (inputType) {
+      case inputTypeEnum.BUY_PRICE:
+        this.props.setBuyPrice(inputValue);
+        break;
+      case inputTypeEnum.QUANTITY:
+        this.props.setQuantity(inputValue);
+        break;
+      case inputTypeEnum.BUDGET:
+        this.props.setBudget(inputValue);
+        break;
+      case inputTypeEnum.MIN_PROFIT:
+        this.props.setMinProfit(inputValue);
+        break;
+    }
 
-  handleChange = prop => event => {
-    this.setState({ [prop]: event.target.value });
+    this.setState({ [inputType]: inputValue });
   };
 
   render() {
@@ -47,8 +67,9 @@ class Input extends Component {
             className={classNames(classes.margin, classes.textField)}
             variant="outlined"
             label="Buying Price"
-            value={this.state.buyingPrice}
-            onChange={this.handleChange('buyingPrice')}
+            value={this.props.buyPrice}
+            onChange={this.handleChange(inputTypeEnum.BUY_PRICE)}
+            type="number"
             InputProps={{
               startAdornment: <InputAdornment position="start">$</InputAdornment>,
             }}
@@ -60,8 +81,9 @@ class Input extends Component {
                 className={classNames(classes.margin, classes.textField)}
                 variant="outlined"
                 label="Quantity"
-                value={this.state.quantity}
-                onChange={this.handleChange('quantity')}
+                value={this.props.quantity}
+                onChange={this.handleChange(inputTypeEnum.QUANTITY)}
+                type="number"
               />
             </Grid>
             <Grid item xs={12} sm={6}>
@@ -70,8 +92,9 @@ class Input extends Component {
                 className={classNames(classes.margin, classes.textField)}
                 variant="outlined"
                 label="Budget"
-                value={this.state.budget}
-                onChange={this.handleChange('budget')}
+                value={this.props.budget}
+                onChange={this.handleChange(inputTypeEnum.BUDGET)}
+                type="number"
                 InputProps={{
                   startAdornment: <InputAdornment position="start">$</InputAdornment>,
                 }}
@@ -83,8 +106,9 @@ class Input extends Component {
             className={classNames(classes.margin, classes.textField)}
             variant="outlined"
             label="Min. Profit"
-            value={this.state.minProfit}
-            onChange={this.handleChange('minProfit')}
+            value={this.props.minProfit}
+            onChange={this.handleChange(inputTypeEnum.MIN_PROFIT)}
+            type="number"
             InputProps={{
               startAdornment: <InputAdornment position="start">$</InputAdornment>,
             }}
@@ -99,4 +123,16 @@ Input.propTypes = {
   classes: PropTypes.object.isRequired
 };
 
-export default withStyles(styles)(Input);
+const mapStateToProps = state => {
+  return {
+    buyPrice: state.buyPrice,
+    budget: state.budget,
+    quantity: state.quantity,
+    minProfit: state.minProfit
+  }
+}
+
+export default connect(
+  mapStateToProps,
+  { setBuyPrice, setBudget, setQuantity, setMinProfit }
+)(withStyles(styles)(Input));
