@@ -5,7 +5,7 @@ class Input extends Component {
     return (
       <div>
         <div>Buying price</div>
-        <div>Budget</div>
+        <div>Budget</div><div>Quantity Bought</div>
         <div>Min profit</div>
       </div>
     );
