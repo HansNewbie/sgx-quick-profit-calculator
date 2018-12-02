@@ -105,7 +105,7 @@ class Input extends Component {
                 id="Quantity"
                 className={classNames(classes.margin, classes.textField)}
                 variant="outlined"
-                label="Quantity"
+                label="No. of Shares"
                 value={this.props.quantity}
                 onChange={this.handleChange(inputTypeEnum.QUANTITY)}
                 InputProps={{

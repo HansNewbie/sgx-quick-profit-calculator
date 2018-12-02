@@ -1,21 +1,21 @@
 import {SET_BUYPRICE, SET_BUDGET, SET_QUANTITY, SET_MINPROFIT} from './actionTypes';
 
-export const setBuyPrice = buyPrice => ({
+export const setBuyPrice = buyPriceInput => ({
     type: SET_BUYPRICE,
-    payload: {buyPrice}
+    payload: {buyPriceInput}
 });
 
-export const setBudget = budget => ({
+export const setBudget = budgetInput => ({
     type: SET_BUDGET,
-    payload: {budget}
+    payload: {budgetInput}
 });
 
-export const setQuantity = quantity => ({
+export const setQuantity = quantityInput => ({
     type: SET_QUANTITY,
-    payload: {quantity}
+    payload: {quantityInput}
 });
 
-export const setMinProfit = minProfit => ({
+export const setMinProfit = minProfitInput => ({
     type: SET_MINPROFIT,
-    payload: {minProfit}
+    payload: {minProfitInput}
 });
