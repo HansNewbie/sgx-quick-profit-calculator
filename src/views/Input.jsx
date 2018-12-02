@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 
 import { connect } from "react-redux";
 import { setBuyPrice, setBudget, setQuantity, setMinProfit } from "../redux/actions";
+import NumberFormat from 'react-number-format';
 
 import { withStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
@@ -34,6 +35,30 @@ const styles = theme => ({
     flexBasis: 200,
   },
 });
+
+const PrettyNumberFormat = (props) => {
+  const { inputRef, onChange, ...other } = props;
+
+  return (
+    <NumberFormat
+      {...other}
+      getInputRef={inputRef}
+      onValueChange={values => {
+        onChange({
+          target: {
+            value: values.value,
+          },
+        });
+      }}
+      thousandSeparator
+    />
+  );
+}
+
+PrettyNumberFormat.propTypes = {
+  inputRef: PropTypes.func.isRequired,
+  onChange: PropTypes.func.isRequired,
+};
 
 class Input extends Component {
   handleChange = inputType => event => {
@@ -69,9 +94,9 @@ class Input extends Component {
             label="Buying Price"
             value={this.props.buyPrice}
             onChange={this.handleChange(inputTypeEnum.BUY_PRICE)}
-            type="number"
             InputProps={{
               startAdornment: <InputAdornment position="start">$</InputAdornment>,
+              inputComponent: PrettyNumberFormat
             }}
           />
           <Grid container spacing={24}>
@@ -83,7 +108,9 @@ class Input extends Component {
                 label="Quantity"
                 value={this.props.quantity}
                 onChange={this.handleChange(inputTypeEnum.QUANTITY)}
-                type="number"
+                InputProps={{
+                  inputComponent: PrettyNumberFormat
+                }}
               />
             </Grid>
             <Grid item xs={12} sm={6}>
@@ -94,9 +121,9 @@ class Input extends Component {
                 label="Budget"
                 value={this.props.budget}
                 onChange={this.handleChange(inputTypeEnum.BUDGET)}
-                type="number"
                 InputProps={{
                   startAdornment: <InputAdornment position="start">$</InputAdornment>,
+                  inputComponent: PrettyNumberFormat
                 }}
               />
             </Grid>
@@ -108,9 +135,9 @@ class Input extends Component {
             label="Min. Profit"
             value={this.props.minProfit}
             onChange={this.handleChange(inputTypeEnum.MIN_PROFIT)}
-            type="number"
             InputProps={{
               startAdornment: <InputAdornment position="start">$</InputAdornment>,
+              inputComponent: PrettyNumberFormat
             }}
           />
         </CardContent>
