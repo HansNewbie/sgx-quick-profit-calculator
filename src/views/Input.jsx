@@ -120,7 +120,7 @@ class Input extends Component {
                 variant="outlined"
                 label="Budget"
                 value={this.props.budget}
-                onChange={this.handleChange(inputTypeEnum.BUDGET)}
+                disabled
                 InputProps={{
                   startAdornment: <InputAdornment position="start">$</InputAdornment>,
                   inputComponent: PrettyNumberFormat

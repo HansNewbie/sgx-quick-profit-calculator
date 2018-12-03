@@ -1,5 +1,5 @@
 import {SET_BUYPRICE, SET_BUDGET, SET_QUANTITY, SET_MINPROFIT} from './actionTypes';
-import {getBudget} from '../services/Calculator';
+import {getBudget, getSellingPrice} from '../services/Calculator';
 
 const initialState = {
   buyPrice: null,
@@ -19,35 +19,33 @@ const initialState = {
 
 
 export default function(state = initialState, action) {
+  let endState = {...state};
+
   switch (action.type) {
     case SET_BUYPRICE:
-      const { buyPriceInput } = action.payload;
-      return {
-        ...state,
-        buyPrice: buyPriceInput
-      }
-    case SET_BUDGET:
-      const { budgetInput } = action.payload;
-      return {
-        ...state,
-        budget: budgetInput
-      }
+      const buyPriceInput = parseFloat(action.payload.buyPriceInput);
+
+      endState.buyPrice = buyPriceInput;
+      break;
     case SET_QUANTITY:
-      const { quantityInput } = action.payload;
+      const quantityInput = parseFloat(action.payload.quantityInput);
       const calculatedBudget = getBudget(state.buyPrice, quantityInput);
 
-      return {
-        ...state,
-        quantity: quantityInput,
-        budget: calculatedBudget
-      }
+      endState.quantity = quantityInput;
+      endState.budget = calculatedBudget;
+      break;
+    // case SET_BUDGET:
+    //   const budgetInput = parseFloat(action.payload.budgetInput);
+
+    //   endState.budget = budgetInput;
+    //   break;
     case SET_MINPROFIT:
-      const { minProfitInput } = action.payload;
-      return {
-        ...state,
-        minProfit: minProfitInput
-      }
-    default:
-      return state;
+      const minProfitInput = parseFloat(action.payload.minProfitInput);
+      endState.minProfit = minProfitInput;
+      break;
   }
+
+  const calculatedSellingPrice = getSellingPrice(endState.quantity, endState.budget, endState.minProfit);
+  endState.calculatedSellingPrice = calculatedSellingPrice;
+  return endState;
 }

@@ -42,14 +42,34 @@ export const getBudget = (buyingPrice, quantity,
   return roundUpTo2Decimal(proceeds + brokerageFee + clearingFee + accessFee + gstAmount);
 }
 
-export const getQuantity = (buyingPrice, budget, rounding = 100,
+// export const getQuantity = (buyingPrice, budget, rounding = 100,
+//     brokerageFeeRate = configState.brokerageFeeRate,
+//     minBrokerageFee = configState.minBrokerageFee,
+//     clearingFeeRate = configState.clearingFeeRate,
+//     maximumClearingFee = configState.maximumClearingFee,
+//     accessFeeRate = configState.accessFeeRate,
+//     gst = configState.gst) => {
+//   const totalFeesRateNoMinMax = (1 + gst) * (brokerageFeeRate + clearingFeeRate + accessFeeRate);
+//   const quantity = budget / (1 + (totalFeesRateNoMinMax));
+//   return quantity;
+// }
+
+export const getSellingPrice = (quantity, budget, minProfit,
     brokerageFeeRate = configState.brokerageFeeRate,
     minBrokerageFee = configState.minBrokerageFee,
     clearingFeeRate = configState.clearingFeeRate,
     maximumClearingFee = configState.maximumClearingFee,
     accessFeeRate = configState.accessFeeRate,
     gst = configState.gst) => {
-  return null;
+  if (quantity === null || budget === null || minProfit === null) {
+    return null;
+  }
+
+  const totalFeesRateNoMinMax = (1 + gst) * (brokerageFeeRate + clearingFeeRate + accessFeeRate);
+  const targetEarning = budget + minProfit;
+  const targetProceeds = targetEarning / (1 - (totalFeesRateNoMinMax));
+
+  return roundUpTo2Decimal(targetProceeds / quantity);
 }
 
 const roundUpTo2Decimal = (value) => {
