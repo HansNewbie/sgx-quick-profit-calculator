@@ -20,16 +20,19 @@ const initialState = {
 
 export default function(state = initialState, action) {
   let endState = {...state};
+  let calculatedBudget;
 
   switch (action.type) {
     case SET_BUYPRICE:
       const buyPriceInput = parseFloat(action.payload.buyPriceInput);
+      calculatedBudget = getBudget(buyPriceInput, state.quantity);
 
       endState.buyPrice = buyPriceInput;
+      endState.budget = calculatedBudget;
       break;
     case SET_QUANTITY:
       const quantityInput = parseFloat(action.payload.quantityInput);
-      const calculatedBudget = getBudget(state.buyPrice, quantityInput);
+      calculatedBudget = getBudget(state.buyPrice, quantityInput);
 
       endState.quantity = quantityInput;
       endState.budget = calculatedBudget;
