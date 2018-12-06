@@ -4,19 +4,19 @@ self.__precacheManifest = [
     "url": "/sgx-quick-profit-calculator/static/js/runtime~main.0d7f7fe0.js"
   },
   {
-    "revision": "698031784d987a9cd9f0",
-    "url": "/sgx-quick-profit-calculator/static/js/main.69803178.chunk.js"
+    "revision": "ea1090b29b6feac78dd3",
+    "url": "/sgx-quick-profit-calculator/static/js/main.ea1090b2.chunk.js"
   },
   {
     "revision": "02265026ceb1efb0d6ad",
     "url": "/sgx-quick-profit-calculator/static/js/1.02265026.chunk.js"
   },
   {
-    "revision": "698031784d987a9cd9f0",
-    "url": "/sgx-quick-profit-calculator/static/css/main.9d707a4e.chunk.css"
+    "revision": "ea1090b29b6feac78dd3",
+    "url": "/sgx-quick-profit-calculator/static/css/main.d9ee86f5.chunk.css"
   },
   {
-    "revision": "bd4a210f6739ec5332bf0d4bf98d490d",
+    "revision": "1d9ff875864c83a22c0336260b35981b",
     "url": "/sgx-quick-profit-calculator/index.html"
   }
 ];

@@ -14,7 +14,7 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/3.6.3/workbox-sw.js");
 
 importScripts(
-  "/sgx-quick-profit-calculator/precache-manifest.38a47c4d7a39d7236b74178ffc76fe90.js"
+  "/sgx-quick-profit-calculator/precache-manifest.507dc16b8d73ef0cf4cdf96c2d0d5fc1.js"
 );
 
 workbox.clientsClaim();
